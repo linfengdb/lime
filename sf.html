@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="shell.css">  
+</head>
+<body>
+    
+  <!-- 苏附 -->
+  <div>
+    <!-- 外骨骼 -->
+    <div class="flex column">
+        <!-- 总览 -->
+        <div class="dao bai ying mgt8">
+            <div id="学期总览" class="bai tit flex diu thick mgt8">学期总览</div>
+            <div class="bian flex">
+            <!-- 总览 -->
+                <div id="t1" class="bai flex1"></div>
+                <div id="t2" class="bai flex1"></div>
+            </div>
+        </div>
+        <!-- 细分 -->
+        <div class="column">
+            <!-- 图标 -->
+            <div class="dao bai ying mgt8">
+                <div id="详细日程" class="bai tit flex diu thick mgt8">详细日程</div>
+                <div id="r1" style="height: 550px;" class="bai flex bian"></div>
+            </div>
+            <div class="dao bai ying mgt8">
+                <div id="时间对比" class="bai tit flex diu thick mgt8">时间对比</div>
+                <div class="bai bian flex">
+                    <div id="d1" class="bai flex1"></div>
+                    <div id="d2" class="bai flex1"></div>
+                </div>
+            </div>
+            <!-- <div style="height: 500px;" class="bai ying mgt8 flex"></div>
+            <div style="height: 160px;" class="bai ying mgt8 flex"></div>
+            <div style="height: 160px;" class="bai ying mgt8 flex"></div> -->
+        </div>    
+    </div>
+</div>
+<script type="text/javascript" src="nuc.js"></script>
+<script>
+    chart = Highcharts.chart('t2', {
+        chart: {
+            spacing : [40, 0 , 40, 0]
+        },
+        title: {
+            floating:true,
+            text: '每周运行：6天'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+            }
+        },
+        series: [{
+            type: 'pie',
+            innerSize: '80%',
+            name: '时间',
+            data: [
+                {name:'双休日：1天',   y: 16.7,},
+                ['工作日：5天',   83.3]
+            ]
+        }]
+    }, function(c) { // 图表初始化完毕后的会掉函数
+        // 环形图圆心
+        var centerY = c.series[0].center[1],
+            titleHeight = parseInt(c.title.styles.fontSize);
+        // 动态设置标题位置
+        c.setTitle({
+            y:centerY + titleHeight/2
+        });
+    });
+</script>
+<!-- 学期总览 -->
+<script>
+    chart = Highcharts.chart('t1', {
+        chart: {
+            spacing : [40, 0 , 40, 0]
+        },
+        title: {
+            floating:true,
+            text: '实际运行：106天'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+            }
+        },
+        series: [{
+            type: 'pie',
+            innerSize: '80%',
+            name: '时间',
+            data: [
+                {name:'应到：89天',   y: 84.0,},
+                ['学业帮扶：17天',   16.0]
+            ]
+        }]
+    }, function(c) { // 图表初始化完毕后的会掉函数
+        // 环形图圆心
+        var centerY = c.series[0].center[1],
+            titleHeight = parseInt(c.title.styles.fontSize);
+        // 动态设置标题位置
+        c.setTitle({
+            y:centerY + titleHeight/2
+        });
+    });
+</script>
+<!-- 详细日程 -->
+<script>
+    var chart = Highcharts.chart('r1', {
+chart: {
+    type: 'bar'
+},
+title: {
+    text: '详细日程'
+},
+xAxis: {
+    categories: ['周一', '周二', '周三', '周四', '周五','周六','周天']
+},
+yAxis: {
+    min: 0,
+    title: {
+        text: '所占时间'
+    }
+},
+legend: {
+    /* 图例显示顺序反转
+     * 这是因为堆叠的顺序默认是反转的，可以设置 
+     * yAxis.reversedStacks = false 来达到类似的效果 
+     */
+    reversed: true 
+},
+plotOptions: {
+    series: {
+        stacking: 'normal'
+    }
+},
+series: [{
+    name: '晚自习',
+    data: [3.75, 3.75, 3.75, 3.75, 3.75,0,3.75]
+},{
+    name: '上课',
+    data: [11.17, 11.17, 11.17, 11.17, 11.17]
+}, {
+    name: '“学业帮扶”',
+    data: [0, 0, 0, 0, 0, 9.92]
+}, {
+    name: '空余',
+    data: [6.83, 6.83, 6.83, 6.83, 6.83, 6.83,18]
+}]
+});
+</script>
+<!-- 占时对比 -->
+<script>
+    var chart = Highcharts.chart('d1',{
+chart: {
+    type: 'column'
+},
+title: {
+    text: '周占时间'
+},
+xAxis: {
+    categories: [
+        '一周：168h'
+    ],
+    crosshair: true
+},
+yAxis: {
+    min: 0,
+    title: {
+        text: '所占时间 (h)'
+    }
+},
+tooltip: {
+    // head + 每个 point + footer 拼接成完整的 table
+    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+    '<td style="padding:0"><b>{point.y:.1f} h</b></td></tr>',
+    footerFormat: '</table>',
+    shared: true,
+    useHTML: true
+},
+plotOptions: {
+    column: {
+        borderWidth: 0
+    }
+},
+series: [{
+    name: '朝九晚五',
+    data: [40]
+}, {
+    name: '996',
+    data: [72]
+}, {
+    name: '苏州大学附属中学',
+    data: [88.25]
+}, ]
+});
+</script>
+<!-- 余时对比 -->
+<script>
+    var chart = Highcharts.chart('d2', {
+chart: {
+    type: 'column'
+},
+title: {
+    text: '周余时间（睡眠按8h计）'
+},
+xAxis: {
+    categories: ['朝九晚五', '996', '苏州大学附属中学']
+},
+yAxis: {
+    min: 0,
+    title: {
+        text: '所占时间比 (%)'
+    }
+},
+tooltip: {
+    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>' +
+    '({point.percentage:.0f}%)<br/>', 
+    //:.0f 表示保留 0 位小数，详见教程：https://www.hcharts.cn/docs/basic-labels-string-formatting
+    shared: true
+},
+plotOptions: {
+    column: {
+        stacking: 'percent'
+    }
+},
+series: [{
+    name: '自由时间',
+    data: [72, 40, 23.75]
+}, {
+    name: '睡眠',
+    data: [56, 56, 56]
+}, ]
+});
+</script>
+</body>
+</html>
